@@ -6,7 +6,6 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"path/filepath"
 
@@ -18,13 +17,12 @@ var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "add memo to clip list",
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 1 {
+		if len(args) != 1 {
 			return errors.New("requires an argument")
 		}
 		return nil
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Println(args)
 		curDir, err := os.Getwd()
 		if err != nil {
 			return err
