@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -28,7 +29,7 @@ var addCmd = &cobra.Command{
 			return err
 		}
 		filePath := filepath.Join(curDir, ".clipList")
-		file, err := os.Create(filePath)
+		file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_APPEND, 0666)
 
 		if err != nil {
 			return err
@@ -37,12 +38,9 @@ var addCmd = &cobra.Command{
 		defer file.Close()
 
 		str := args[0]
-		data := []byte(str)
-		_, writeErr := file.Write(data)
 
-		if writeErr != nil {
-			return writeErr
-		}
+		fmt.Fprintln(file, str)
+
 		return nil
 	},
 }
