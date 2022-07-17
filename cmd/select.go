@@ -5,6 +5,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"regexp"
@@ -17,6 +18,12 @@ import (
 var selectCmd = &cobra.Command{
 	Use:   "select",
 	Short: "select clip",
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) > 0 {
+			return errors.New("argument is not required")
+		}
+		return nil
+	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		file, err := os.Open(".clipList")
