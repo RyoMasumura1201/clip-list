@@ -6,6 +6,8 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"regexp"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
@@ -16,9 +18,25 @@ var selectCmd = &cobra.Command{
 	Use:   "select",
 	Short: "select clip",
 	RunE: func(cmd *cobra.Command, args []string) error {
+
+		file, err := os.Open(".clipList")
+
+		if err != nil {
+			return err
+		}
+
+		data := make([]byte, 1024)
+		count, err := file.Read(data)
+
+		if err != nil {
+			return err
+		}
+
+		clipList := regexp.MustCompile("\r\n|\n").Split(string(data[:count]), -1)
+
 		prompt := promptui.Select{
 			Label: "Select clip",
-			Items: []string{"hoge", "fuga", "test"},
+			Items: clipList,
 		}
 
 		idx, result, err := prompt.Run()
