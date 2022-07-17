@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -24,12 +23,7 @@ var addCmd = &cobra.Command{
 		return nil
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
-		curDir, err := os.Getwd()
-		if err != nil {
-			return err
-		}
-		filePath := filepath.Join(curDir, ".clipList")
-		file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_APPEND, 0666)
+		file, err := os.OpenFile(".clipList", os.O_WRONLY|os.O_APPEND, 0666)
 
 		if err != nil {
 			return err
