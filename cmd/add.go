@@ -5,6 +5,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -14,9 +15,15 @@ import (
 var addCmd = &cobra.Command{
 	Use:   "add",
 	Short: "add memo to clip list",
-	Long:  `add memo to clip list`,
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 1 {
+			return errors.New("requires an argument")
+		}
+		return nil
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("add called")
+		fmt.Println(args)
 	},
 }
 
