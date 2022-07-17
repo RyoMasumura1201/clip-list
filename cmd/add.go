@@ -24,14 +24,27 @@ var addCmd = &cobra.Command{
 		return nil
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Println("add called")
 		fmt.Println(args)
 		curDir, err := os.Getwd()
 		if err != nil {
 			return err
 		}
-		filename := filepath.Join(curDir, ".clipList")
-		fmt.Println(filename)
+		filePath := filepath.Join(curDir, ".clipList")
+		file, err := os.Create(filePath)
+
+		if err != nil {
+			return err
+		}
+
+		defer file.Close()
+
+		str := "hello world"
+		data := []byte(str)
+		_, writeErr := file.Write(data)
+
+		if writeErr != nil {
+			return writeErr
+		}
 		return nil
 	},
 }
