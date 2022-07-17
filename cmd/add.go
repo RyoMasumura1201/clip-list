@@ -7,6 +7,8 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -21,9 +23,16 @@ var addCmd = &cobra.Command{
 		}
 		return nil
 	},
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("add called")
 		fmt.Println(args)
+		curDir, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+		filename := filepath.Join(curDir, ".clipList")
+		fmt.Println(filename)
+		return nil
 	},
 }
 
