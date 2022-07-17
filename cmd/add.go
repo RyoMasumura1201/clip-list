@@ -36,7 +36,7 @@ var addCmd = &cobra.Command{
 
 		defer file.Close()
 
-		str := "hello world"
+		str := args[0]
 		data := []byte(str)
 		_, writeErr := file.Write(data)
 
