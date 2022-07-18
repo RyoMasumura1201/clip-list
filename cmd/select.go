@@ -43,6 +43,7 @@ var selectCmd = &cobra.Command{
 		}
 
 		clipList := regexp.MustCompile("\r\n|\n").Split(string(data[:count]), -1)
+		clipList = clipList[:len(clipList)-1]
 
 		prompt := promptui.Select{
 			Label: "Select clip",
