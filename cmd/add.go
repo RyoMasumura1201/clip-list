@@ -35,6 +35,8 @@ var addCmd = &cobra.Command{
 
 		fmt.Fprintln(file, str)
 
+		fmt.Printf("added %s.\n", str)
+
 		return nil
 	},
 }
