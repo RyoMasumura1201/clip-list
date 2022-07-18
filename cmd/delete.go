@@ -25,8 +25,6 @@ var deleteCmd = &cobra.Command{
 			return err
 		}
 
-		fmt.Println("aa")
-
 		defer file.Close()
 
 		data := make([]byte, 1024)
@@ -35,8 +33,6 @@ var deleteCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-
-		fmt.Println("aa")
 
 		clipList := regexp.MustCompile("\r\n|\n").Split(string(data[:count]), -1)
 
