@@ -20,6 +20,23 @@ var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "delete clip",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		isAll, err := cmd.Flags().GetBool("all")
+
+		if err != nil {
+			return err
+		}
+
+		if isAll {
+			err = os.Remove(".clipList")
+
+			if err != nil {
+				return err
+			}
+			os.Create(".clipList")
+
+			fmt.Println("all clips is deleted.")
+			return nil
+		}
 		file, err := os.Open(".clipList")
 
 		if err != nil {
@@ -33,7 +50,7 @@ var deleteCmd = &cobra.Command{
 
 		if err != nil {
 			if err.Error() == "EOF" {
-				fmt.Println("There is no clip")
+				fmt.Println("there is no clip")
 				return nil
 			}
 			return err
@@ -43,7 +60,7 @@ var deleteCmd = &cobra.Command{
 		clipList = clipList[:len(clipList)-1]
 
 		if len(clipList) == 0 {
-			return errors.New("There is no clip")
+			return errors.New("there is no clip")
 		}
 
 		prompt := promptui.Select{
@@ -92,13 +109,5 @@ var deleteCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(deleteCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// deleteCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// deleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	deleteCmd.Flags().BoolP("all", "a", false, "delete all clips.")
 }
