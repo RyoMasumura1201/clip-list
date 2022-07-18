@@ -15,10 +15,10 @@ import (
 // addCmd represents the add command
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "add memo to clip list",
+	Short: "Add memo to clip list",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
-			return errors.New("requires an argument")
+			return errors.New("Requires an argument")
 		}
 		return nil
 	},
@@ -35,7 +35,7 @@ var addCmd = &cobra.Command{
 
 		fmt.Fprintln(file, str)
 
-		fmt.Printf("added %s.\n", str)
+		fmt.Printf("Added %s.\n", str)
 
 		return nil
 	},

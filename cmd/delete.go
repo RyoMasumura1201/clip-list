@@ -5,7 +5,6 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"regexp"
@@ -34,7 +33,7 @@ var deleteCmd = &cobra.Command{
 			}
 			os.Create(".clipList")
 
-			fmt.Println("all clips is deleted.")
+			fmt.Println("All clips is deleted.")
 			return nil
 		}
 		file, err := os.Open(".clipList")
@@ -50,7 +49,7 @@ var deleteCmd = &cobra.Command{
 
 		if err != nil {
 			if err.Error() == "EOF" {
-				fmt.Println("there is no clip")
+				fmt.Println("There is no clip")
 				return nil
 			}
 			return err
@@ -58,10 +57,6 @@ var deleteCmd = &cobra.Command{
 
 		clipList := regexp.MustCompile("\r\n|\n").Split(string(data[:count]), -1)
 		clipList = clipList[:len(clipList)-1]
-
-		if len(clipList) == 0 {
-			return errors.New("there is no clip")
-		}
 
 		prompt := promptui.Select{
 			Label: "Select clip",
@@ -92,7 +87,7 @@ var deleteCmd = &cobra.Command{
 			return err
 		}
 
-		fmt.Println("selected clip is deleted.")
+		fmt.Println("Selected clip is deleted.")
 
 		err = os.Remove(".clipList")
 
@@ -109,5 +104,5 @@ var deleteCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(deleteCmd)
 
-	deleteCmd.Flags().BoolP("all", "a", false, "delete all clips.")
+	deleteCmd.Flags().BoolP("all", "a", false, "Delete all clips.")
 }

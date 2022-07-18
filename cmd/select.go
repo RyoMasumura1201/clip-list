@@ -21,7 +21,7 @@ var selectCmd = &cobra.Command{
 	Short: "select clip",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) > 0 {
-			return errors.New("argument is not required")
+			return errors.New("Arguments are not required")
 		}
 		return nil
 	},
@@ -58,7 +58,7 @@ var selectCmd = &cobra.Command{
 
 		exec.Command("osascript", "-e", "set the clipboard to \""+result+"\"").Output()
 
-		fmt.Println("copied to clipboard.")
+		fmt.Println("Copied to clipboard.")
 		return nil
 	},
 }

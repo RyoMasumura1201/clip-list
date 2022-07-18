@@ -18,7 +18,7 @@ var showCmd = &cobra.Command{
 	Short: "show clip list",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) > 0 {
-			return errors.New("argument is not required")
+			return errors.New("Argument is not required")
 		}
 		return nil
 	},
