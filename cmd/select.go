@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"regexp"
 
 	"github.com/manifoldco/promptui"
@@ -46,13 +47,15 @@ var selectCmd = &cobra.Command{
 			Items: clipList,
 		}
 
-		idx, result, err := prompt.Run()
+		_, result, err := prompt.Run()
 
 		if err != nil {
 			return err
 		}
 
-		fmt.Printf("You choose no.%d %q\n", idx, result)
+		exec.Command("osascript", "-e", "set the clipboard to \""+result+"\"").Output()
+
+		fmt.Println("copied to clipboard.")
 		return nil
 	},
 }
