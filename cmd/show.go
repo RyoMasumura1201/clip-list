@@ -30,6 +30,8 @@ var showCmd = &cobra.Command{
 			return err
 		}
 
+		defer file.Close()
+
 		data := make([]byte, 1024)
 		count, err := file.Read(data)
 
