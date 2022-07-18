@@ -5,6 +5,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"regexp"
@@ -31,10 +32,19 @@ var deleteCmd = &cobra.Command{
 		count, err := file.Read(data)
 
 		if err != nil {
+			if err.Error() == "EOF" {
+				fmt.Println("There is no clip")
+				return nil
+			}
 			return err
 		}
 
 		clipList := regexp.MustCompile("\r\n|\n").Split(string(data[:count]), -1)
+		clipList = clipList[:len(clipList)-1]
+
+		if len(clipList) == 0 {
+			return errors.New("There is no clip")
+		}
 
 		prompt := promptui.Select{
 			Label: "Select clip",
@@ -53,7 +63,13 @@ var deleteCmd = &cobra.Command{
 
 		w, err := os.Create(".clipList_")
 
-		fmt.Fprintln(w, str)
+		if err != nil {
+			return err
+		}
+
+		if len(clipList) > 0 {
+			_, err = fmt.Fprintln(w, str)
+		}
 
 		if err != nil {
 			return err
