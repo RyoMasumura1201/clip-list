@@ -12,39 +12,40 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// showCmd represents the show command
-var showCmd = &cobra.Command{
-	Use:   "show",
-	Short: "show clip list",
-	Args: func(cmd *cobra.Command, args []string) error {
-		if len(args) > 0 {
-			return errors.New("Argument is not required")
-		}
-		return nil
-	},
-	RunE: func(cmd *cobra.Command, args []string) error {
+func NewCmdShow() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "show",
+		Short: "show clip list",
+		Args: func(cmd *cobra.Command, args []string) error {
+			if len(args) > 0 {
+				return errors.New("Argument is not required")
+			}
+			return nil
+		},
+		RunE: func(cmd *cobra.Command, args []string) error {
 
-		file, err := os.Open(".clipList")
+			file, err := os.Open(".clipList")
 
-		if err != nil {
-			return err
-		}
+			if err != nil {
+				return err
+			}
 
-		defer file.Close()
+			defer file.Close()
 
-		data := make([]byte, 1024)
-		count, err := file.Read(data)
+			data := make([]byte, 1024)
+			count, err := file.Read(data)
 
-		if err != nil {
-			return err
-		}
+			if err != nil {
+				return err
+			}
 
-		fmt.Println(string(data[:count]))
+			fmt.Println(string(data[:count]))
 
-		return nil
-	},
+			return nil
+		},
+	}
+
+	return cmd
 }
 
-func init() {
-	rootCmd.AddCommand(showCmd)
-}
+func init() {}
