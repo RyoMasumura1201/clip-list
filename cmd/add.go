@@ -18,7 +18,7 @@ func NewCmdAdd() *cobra.Command {
 		Short: "Add memo to clip list",
 		Args: func(cmd *cobra.Command, args []string) error {
 			if len(args) != 1 {
-				return errors.New("Requires an argument")
+				return errors.New("Requires one argument")
 			}
 			return nil
 		},
