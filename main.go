@@ -23,5 +23,5 @@ func main() {
 	}
 
 	defer file.Close()
-	cmd.Execute()
+	cmd.Execute(filePath)
 }

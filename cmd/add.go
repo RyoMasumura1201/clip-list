@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewCmdAdd() *cobra.Command {
+func NewCmdAdd(filePath string) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "add",
 		Short: "Add memo to clip list",
@@ -23,7 +23,7 @@ func NewCmdAdd() *cobra.Command {
 			return nil
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
-			file, err := os.OpenFile(".clipList", os.O_WRONLY|os.O_APPEND, 0666)
+			file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_APPEND, 0666)
 
 			if err != nil {
 				return err

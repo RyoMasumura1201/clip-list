@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewCmdShow() *cobra.Command {
+func NewCmdShow(filePath string) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "show",
 		Short: "show clip list",
@@ -24,7 +24,7 @@ func NewCmdShow() *cobra.Command {
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 
-			file, err := os.Open(".clipList")
+			file, err := os.Open(filePath)
 
 			if err != nil {
 				return err

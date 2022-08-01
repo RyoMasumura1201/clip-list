@@ -15,7 +15,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewCmdSelect() *cobra.Command {
+func NewCmdSelect(filePath string) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "select",
 		Short: "select clip",
@@ -27,7 +27,7 @@ func NewCmdSelect() *cobra.Command {
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 
-			file, err := os.Open(".clipList")
+			file, err := os.Open(filePath)
 
 			if err != nil {
 				return err

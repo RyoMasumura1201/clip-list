@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewCmdDelete() *cobra.Command {
+func NewCmdDelete(filePath string) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete",
 		Short: "delete clip",
@@ -26,17 +26,17 @@ func NewCmdDelete() *cobra.Command {
 			}
 
 			if isAll {
-				err = os.Remove(".clipList")
+				err = os.Remove(filePath)
 
 				if err != nil {
 					return err
 				}
-				os.Create(".clipList")
+				os.Create(filePath)
 
 				fmt.Println("All clips is deleted.")
 				return nil
 			}
-			file, err := os.Open(".clipList")
+			file, err := os.Open(filePath)
 
 			if err != nil {
 				return err
@@ -73,7 +73,7 @@ func NewCmdDelete() *cobra.Command {
 
 			str := strings.Join(clipList, "\n")
 
-			w, err := os.Create(".clipList_")
+			w, err := os.Create(filePath + "_")
 
 			if err != nil {
 				return err
@@ -89,13 +89,13 @@ func NewCmdDelete() *cobra.Command {
 
 			fmt.Println("Selected clip is deleted.")
 
-			err = os.Remove(".clipList")
+			err = os.Remove(filePath)
 
 			if err != nil {
 				return err
 			}
 
-			os.Rename(".clipList_", ".clipList")
+			os.Rename(filePath+"_", filePath)
 
 			return nil
 		},
