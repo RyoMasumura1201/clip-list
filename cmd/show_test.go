@@ -12,7 +12,7 @@ func TestShowClip(t *testing.T) {
 		command string
 		want    string
 	}{
-		{command: "clip-list show hoge", want: "Argument is not required"},
+		{command: "clip-list show hoge", want: "Arguments are not required"},
 	}
 
 	for _, c := range cases {

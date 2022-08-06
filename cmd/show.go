@@ -18,7 +18,7 @@ func NewCmdShow(filePath string) *cobra.Command {
 		Short: "show clip list",
 		Args: func(cmd *cobra.Command, args []string) error {
 			if len(args) > 0 {
-				return errors.New("Argument is not required")
+				return errors.New("Arguments are not required")
 			}
 			return nil
 		},
