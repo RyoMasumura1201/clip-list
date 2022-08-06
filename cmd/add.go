@@ -35,7 +35,7 @@ func NewCmdAdd(filePath string) *cobra.Command {
 
 			fmt.Fprintln(file, str)
 
-			fmt.Printf("Added %s.\n", str)
+			cmd.Printf("Added %s.\n", str)
 
 			return nil
 		},
